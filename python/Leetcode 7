@@ -1,0 +1,24 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        xvalue=abs(x)
+        if(x!=0):
+            flag=x/xvalue
+        else:
+            flag=1
+        digit=[]
+        while xvalue:
+            digit.append(xvalue%10)
+            xvalue=xvalue//10
+        scale=len(digit)-1
+        result=0
+        for i in digit:
+            result+=i*(10**scale)
+            scale-=1
+        if(flag*result<-2**31 or flag*result>=2**31):
+            return 0
+        else:
+            return flag*result
