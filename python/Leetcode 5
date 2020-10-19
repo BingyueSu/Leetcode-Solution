@@ -1,0 +1,21 @@
+class Solution(object):                       #exceed the time limit
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def ispalin(s):
+            return(s==s[::-1])
+        length=[1]*len(s)
+        store=''
+        for i in range(1,len(s)):
+            length[i]=length[i-1]
+            for j in range(0,i+1-length[i]):
+                if(ispalin(s[j:(i+1)])):
+                    length[i]=i+1-j
+                    store=s[j:(i+1)]
+                    break
+        if(store):
+            return store
+        else:
+            return(s[0])
