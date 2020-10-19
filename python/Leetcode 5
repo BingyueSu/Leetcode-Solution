@@ -16,3 +16,24 @@ class Solution(object):
             return store
         else:
             return(s[0])
+
+
+class Solution(object):    #dynamic programming
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        palin=''
+        table=[[0 for i in range(len(s))] for j in range(len(s))]
+        for i in reversed(range(len(s))):
+            for j in range(i,len(s)):
+                if(j==i):
+                    table[i][j]=True
+                elif(j==i+1):
+                    table[i][j]=(s[i]==s[j])
+                else:
+                    table[i][j]=(table[i+1][j-1] and s[i]==s[j])
+                if(table[i][j] and j-i+1>len(palin)):
+                    palin=s[i:j+1]
+        return(palin)
