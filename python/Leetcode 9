@@ -1,0 +1,19 @@
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if(x<0):
+            return(False)
+        xval=x
+        digit=[]
+        while xval:
+            digit.append(xval%10)
+            xval=xval//10
+        revx=0
+        j=0
+        for i in reversed(range(len(digit))):
+            revx+=digit[i]*(10**j)
+            j+=1
+        return(revx==x)
