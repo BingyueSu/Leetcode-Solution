@@ -1,0 +1,24 @@
+class Solution(object):
+    def find132pattern(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        def find(nums): 
+            if(len(nums)<3):
+                return(False)
+            if(len(nums)==3):
+                if(nums[0]<nums[2] and nums[2]<nums[1]):
+                    return True
+                else:
+                    return False
+            if(len(nums)>3):
+                i=nums.index(max(nums))
+                if(i==0 or i==len(nums)):
+                    return(find(nums[0:i]) or find(nums[i+1:len(nums)]))
+                min_left=min(nums[0:i])
+                for val in nums[i+1:len(nums)]:
+                    if(min_left<val and val<nums[i]):
+                        return True
+                return(find(nums[0:i]) or find(nums[i+1:len(nums)]))
+        return(find(nums))
