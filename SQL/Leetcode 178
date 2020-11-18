@@ -1,0 +1,10 @@
+#dense_rank
+Select Score, dense_rank() over(order by Score desc) as "Rank"
+from Scores 
+
+#without function
+Select s1.Score, count(distinct s2.Score) as 'Rank'
+from Scores s1 left join Scores s2
+on s1.Score<=s2.Score
+group by s1.Id
+order by s1.Score desc
