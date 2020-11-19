@@ -1,0 +1,5 @@
+# Write your MySQL query statement below
+Select ifnull( round(((select count(distinct r.requester_id, r.accepter_id) from
+     request_accepted r)/
+     (Select count(distinct f.sender_id, f.send_to_id) from
+     friend_request f)),2) ,0) as accept_rate
