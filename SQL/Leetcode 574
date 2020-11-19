@@ -1,0 +1,7 @@
+# Write your MySQL query statement below
+Select Name 
+from Candidate c1 inner join Vote v1
+on c1.id=v1.CandidateId
+group by c1.Name
+order by count(*) desc
+limit 1
