@@ -1,0 +1,8 @@
+# Write your MySQL query statement below
+Select question_id as survey_log
+from (Select sum(case when action='answer' then 1 else 0 end) as num_answer,
+     count(action) as total, question_id
+      from survey_log
+     group by question_id) s1
+order by num_answer/total desc
+limit 1
