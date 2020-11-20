@@ -1,0 +1,19 @@
+class Solution(object):
+    def minRemoveToMakeValid(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack=[]
+        delete=[]
+        for i in range(len(s)):
+            if(s[i]=='('):
+                stack.append(s[i])
+                delete.append(i)
+            elif(s[i]==')'):
+                if(len(stack)==0 or stack[-1]!='('):
+                    delete.append(i)
+                elif(stack[-1]=="("):
+                    stack.pop()
+                    delete.pop()
+        return([s[i] for i in range(len(s)) if i not in delete])
