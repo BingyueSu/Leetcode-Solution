@@ -1,0 +1,35 @@
+# """
+# This is BinaryMatrix's API interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class BinaryMatrix(object):
+#    def get(self, row, col):
+#        """
+#        :type row : int, col : int
+#        :rtype int
+#        """
+#
+#    def dimensions:
+#        """
+#        :rtype list[]
+#        """
+
+class Solution(object):
+    def leftMostColumnWithOne(self, binaryMatrix):
+        """
+        :type binaryMatrix: BinaryMatrix
+        :rtype: int
+        """
+        (nrow,ncol)=binaryMatrix.dimensions()
+        def find(low,high):
+            if(low==high):
+                for i in range(nrow):
+                    if(binaryMatrix.get(i,low)==1):
+                        return(low)
+                return(-1)
+            mid=int((high+low)/2)
+            for i in range(nrow):
+                if(binaryMatrix.get(i,mid)==1):
+                    return(find(low,mid))
+            return(find(mid+1,high))
+        return(find(0,ncol-1))
