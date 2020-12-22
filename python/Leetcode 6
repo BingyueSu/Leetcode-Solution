@@ -1,0 +1,25 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if(numRows==1):
+            return(s)
+        store=['']*numRows
+        rowflag=0
+        up_or_down=-1
+        for i in range(len(s)):
+            if(rowflag==(numRows-1) or rowflag==0):
+                up_or_down*=-1
+            store[rowflag]+=s[i]
+            if(up_or_down==1):
+                rowflag+=1
+            else:
+                rowflag-=1
+        result=''
+        for i in range(len(store)):
+            result+=store[i]
+        return(result)
+            
