@@ -1,0 +1,6 @@
+# Write your MySQL query statement below
+Select (case when id%2=1 and id!=num then id+1
+        when id%2=0 then id-1
+        when id%2=1 and id=num then id end) as id, student
+from seat, (Select count(*) as num from seat) as s1
+order by id asc
