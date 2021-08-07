@@ -7,13 +7,11 @@ Select ifnull( round(((select count(distinct r.requester_id, r.accepter_id) from
 Select
 ROUND(
 IFNULL(
-    (Select count(*)
-from (Select distinct sender_id, send_to_id
-     from FriendRequest) s1
+    (Select count(distinct sender_id, send_to_id)
+from FriendRequest
 where (sender_id, send_to_id) in 
 (Select requester_id, accepter_id
 from RequestAccepted))
     /
-    (Select count(*) from (Select distinct sender_id, send_to_id
-     from FriendRequest) s2),0),2
+    (Select count(distinct sender_id, send_to_id) from FriendRequest),0),2
     ) as accept_rate
