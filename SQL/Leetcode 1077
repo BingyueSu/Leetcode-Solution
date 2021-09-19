@@ -1,0 +1,9 @@
+# Write your MySQL query statement below
+Select p1.project_id, p1.employee_id
+from Project p1 join Employee e1
+on p1.employee_id=e1.employee_id
+where (p1.project_id,e1.experience_years )in
+(Select p1.project_id,max(e1.experience_years)
+from Project p1 join Employee e1
+on p1.employee_id=e1.employee_id
+group by project_id)
