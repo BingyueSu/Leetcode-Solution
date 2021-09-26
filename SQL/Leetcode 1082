@@ -1,0 +1,6 @@
+Select seller_id 
+from
+(Select seller_id, rank() over (order by sum(price) desc) as my_rank
+from Sales
+group by seller_id) s1
+where my_rank=1
