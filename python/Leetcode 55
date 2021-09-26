@@ -1,0 +1,18 @@
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        last=len(nums)-1
+        if(last<=0):
+            return True
+        maxpos=0
+        i=0
+        while i<=maxpos:
+            if(i+nums[i]>maxpos):
+                maxpos=i+nums[i]
+            if(maxpos>=last):
+                return True
+            i+=1
+        return False
