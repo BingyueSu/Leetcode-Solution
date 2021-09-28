@@ -1,0 +1,24 @@
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        numstep=0
+        end=len(nums)-1
+        if(end<=0):
+            return 0
+        i=0
+        step=1
+        maxindex=0
+        while 1:
+            newmax=0
+            while i<=maxindex:
+                if(i+nums[i]>=end):
+                    return(step)
+                if(i+nums[i]>newmax):
+                    newmax=i+nums[i]
+                i+=1
+            step+=1
+            if(newmax>maxindex):
+                maxindex=newmax
