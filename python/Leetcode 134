@@ -1,0 +1,22 @@
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        diff=[0]*len(gas)
+        summation=0
+        for i in range(len(gas)):
+            diff[i]=gas[i]-cost[i]
+            summation+=diff[i]
+        if(summation<0):
+            return(-1)
+        summation=0
+        start=0
+        for i in range(len(gas)):
+            summation+=diff[i]
+            if(summation<0):
+                summation=0
+                start=i+1
+        return(start)
