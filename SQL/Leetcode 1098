@@ -1,0 +1,7 @@
+Select distinct b1.book_id, b1.name 
+from Books b1 left join Orders O1
+on b1.book_id=O1.book_id
+and dispatch_date between '2018-06-23' and '2019-06-23'
+where available_from not between '2019-05-23' and '2019-06-23'
+group by book_id
+having ifnull(sum(quantity),0)<10
