@@ -1,0 +1,12 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n==1:
+            return(1)
+        climbing=[1]*(n+1)
+        for i in reversed(range(n-1)):
+            climbing[i]=climbing[i+1]+climbing[i+2]
+        return(climbing[0])
