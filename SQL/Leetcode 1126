@@ -1,0 +1,8 @@
+Select business_id
+from
+Events e1 join (Select event_type, occurences, avg(occurences) as average_activity 
+from Events
+group by event_type) e2
+where e1.event_type=e2.event_type and e1.occurences>e2.average_activity
+group by business_id
+having count(e1.event_type)>1
