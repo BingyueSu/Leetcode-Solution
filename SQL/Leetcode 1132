@@ -6,6 +6,12 @@ on a1.post_id=r1.post_id
 where a1.extra='spam'
 group by action_date) m1
 
+
+
+
+
+
+
 with daily_post_removal as
 (Select action_date, count(distinct a1.post_id) as total, count(distinct r1.post_id) as num_remove
 from Actions a1 left join Removals r1
