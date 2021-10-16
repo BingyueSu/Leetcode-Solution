@@ -1,0 +1,17 @@
+Select round(avg(num_remove/total*100),2) as average_daily_percent
+from
+(Select action_date, count(distinct a1.post_id) as total, count(distinct r1.post_id) as num_remove
+from Actions a1 left join Removals r1
+on a1.post_id=r1.post_id
+where a1.extra='spam'
+group by action_date) m1
+
+with daily_post_removal as
+(Select action_date, count(distinct a1.post_id) as total, count(distinct r1.post_id) as num_remove
+from Actions a1 left join Removals r1
+on a1.post_id=r1.post_id
+where a1.extra='spam'
+group by action_date)
+
+Select round(avg(num_remove/total)*100,2) as average_daily_percent
+from daily_post_removal
