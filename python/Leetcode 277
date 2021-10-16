@@ -1,0 +1,28 @@
+# The knows API is already defined for you.
+# @param a, person a
+# @param b, person b
+# @return a boolean, whether a knows b
+# def knows(a, b):
+
+class Solution(object):
+    def isCelebrity(self,i):
+        for j in range(self.n):
+            if(j==i):
+                continue
+            if(not knows(j,i) or knows(i,j)):
+                return False
+        return True
+    
+    def findCelebrity(self,n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        self.n=n
+        i=0
+        for j in range(i+1,n):
+            if knows(i,j):
+                i=j
+        if self.isCelebrity(i):
+            return(i)
+        return(-1)
