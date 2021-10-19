@@ -1,0 +1,17 @@
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        last={character:i for i,character in enumerate(s)}
+        store=[s[0]]
+        instore={s[0]}
+        for i in range(1,len(s)):
+            if(s[i] not in instore):
+                while(store and s[i]<=store[-1] and last[store[-1]]>i-1):
+                    instore.discard(store[-1])
+                    store.pop()
+                store.append(s[i])
+                instore.add(s[i])
+        return("".join(store))
