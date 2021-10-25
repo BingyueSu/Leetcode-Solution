@@ -1,0 +1,8 @@
+# Write your MySQL query statement below
+Select user_id as buyer_id, join_date, 
+sum(case when order_date between '2019-01-01' and '2019-12-31' then 1
+    else 0 end) as orders_in_2019
+from Users u1 left join Orders o1
+on user_id=buyer_id
+group by user_id
+order by user_id
