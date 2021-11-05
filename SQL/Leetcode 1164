@@ -1,0 +1,9 @@
+# Write your MySQL query statement below
+Select distinct p1.product_id, (case when lastupdate is null then 10 else new_price end) as price
+from Products p1 left join
+(Select product_id, max(change_date) as lastupdate
+ from Products p2
+ where p2.change_date<='2019-08-16'
+ group by product_id) s1
+ on p1.product_id=s1.product_id
+ where p1.change_date=s1.lastupdate or s1.lastupdate is null
