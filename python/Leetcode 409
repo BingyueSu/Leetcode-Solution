@@ -1,0 +1,18 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        count={}
+        for x in s:
+            if x not in count:
+                count[x]=1
+            else:
+                count[x]+=1
+        total=0
+        for key in count:
+            total+=count[key]//2*2
+            if total%2==0 and count[key]%2==1:
+                total+=1
+        return total
