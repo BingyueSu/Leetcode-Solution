@@ -1,0 +1,18 @@
+class Solution(object):
+    def deleteAndEarn(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        points=defaultdict(int)
+        for num in nums:
+            points[num]+=num
+        maxnum=max(points.values())
+        
+        maxpoint=[0]*(maxnum+1)
+        maxpoint[1]=points[1]
+        
+        for i in range(2,len(maxpoint)):
+            maxpoint[i]=max(maxpoint[i-1],maxpoint[i-2]+points[i])
+        
+        return maxpoint[maxnum]
