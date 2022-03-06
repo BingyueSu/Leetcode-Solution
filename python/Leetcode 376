@@ -1,0 +1,21 @@
+class Solution(object):
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums)<2:
+            return len(nums)
+        up=[1]*len(nums)
+        down=[1]*len(nums)
+        for i in range(len(nums)-1):
+            if nums[i+1]>nums[i]:
+                up[i+1]=down[i]+1
+                down[i+1]=down[i]
+            elif nums[i+1]<nums[i]:
+                down[i+1]=up[i]+1
+                up[i+1]=up[i]
+            else:
+                up[i+1]=up[i]
+                down[i+1]=down[i]
+        return max(up[len(nums)-1],down[len(nums)-1])
