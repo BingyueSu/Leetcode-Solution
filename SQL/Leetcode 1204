@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+with cumWeight as 
+(Select q1.turn, q1.person_name, sum(q2.weight) as total_weight
+from queue q1 join queue q2
+where q2.turn<=q1.turn
+group by q1.turn)
+
+Select c1.person_name
+from cumWeight c1
+where c1.turn=(
+Select max(turn) from cumWeight c2
+where c2.total_weight<=1000)
