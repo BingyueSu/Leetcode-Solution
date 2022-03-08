@@ -1,0 +1,22 @@
+class Solution(object):
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        if nums is None:
+            return([])
+        ranges=[]
+        i=0
+        while i<=len(nums)-1:
+            next_num=nums[i]
+            end=i
+            while next_num in nums:
+                next_num+=1
+                end+=1
+            if next_num==nums[i]+1:
+                ranges.append(str(nums[i]))
+            else:
+                ranges.append(str(nums[i])+'->'+str(next_num-1))
+            i=end
+        return(ranges)
