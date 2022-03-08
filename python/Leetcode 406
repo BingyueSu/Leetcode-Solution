@@ -1,0 +1,11 @@
+class Solution(object):
+    def reconstructQueue(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        reorder=[]
+        people.sort(key=lambda x:(-x[0],x[1]))
+        for p in people:
+            reorder.insert(p[1],p)
+        return reorder
