@@ -1,0 +1,22 @@
+class Solution(object):
+    def duplicateZeros(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: None Do not return anything, modify arr in-place instead.
+        """
+        n=len(arr)
+        if n==0:
+            return arr
+        new_arr=[0]*n
+        i=0
+        j=0
+        while i<n:
+            if arr[j]!=0:
+                new_arr[i]=arr[j]
+            else:
+                i+=1
+            i+=1
+            j+=1
+        for i in range(n):
+            arr[i]=new_arr[i]
+        return new_arr
