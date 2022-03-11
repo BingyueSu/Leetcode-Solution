@@ -1,0 +1,16 @@
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        if intervals is None:
+            return 0
+        allocated=[]
+        intervals.sort(key=lambda x:x[0])
+        heapq.heappush(allocated,intervals[0][1])
+        for intv in intervals[1:]:
+            if intv[0]>=allocated[0]:
+                heapq.heappop(allocated)
+            heapq.heappush(allocated,intv[1])
+        return len(allocated)
