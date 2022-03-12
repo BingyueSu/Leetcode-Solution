@@ -14,3 +14,22 @@ class Solution(object):
                 heapq.heappop(allocated)
             heapq.heappush(allocated,intv[1])
         return len(allocated)
+        
+        
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        start=sorted(intervals[i][0] for i in range(len(intervals)))
+        end=sorted(intervals[i][1] for i in range(len(intervals)))
+        i=0
+        j=0
+        num_room=0
+        for i in range(len(intervals)):
+            if start[i]>=end[j]:
+                num_room-=1
+                j+=1
+            num_room+=1
+        return num_room
