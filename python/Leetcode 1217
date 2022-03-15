@@ -1,0 +1,15 @@
+class Solution(object):
+    def minCostToMoveChips(self, position):
+        """
+        :type position: List[int]
+        :rtype: int
+        """
+        if len(position)<2:
+            return 0
+        cost=[0]*2
+        for i in position:
+            if i%2==0:
+                cost[1]+=1
+            else:
+                cost[0]+=1
+        return min(cost)
