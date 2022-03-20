@@ -1,0 +1,31 @@
+class Solution(object):
+    def minDominoRotations(self, tops, bottoms):
+        """
+        :type tops: List[int]
+        :type bottoms: List[int]
+        :rtype: int
+        """
+        if len(tops)<=1:
+            return 0
+        flipA=[0]*2
+        flipB=[0]*2
+        for i in range(len(tops)):
+            if tops[i]!=tops[0] and bottoms[i]!=tops[0]:
+                flipA[0]=flipA[1]=-1
+                break
+            elif bottoms[i]!=tops[0]:
+                    flipA[0]+=1
+            elif tops[i]!=tops[0]:
+                    flipA[1]+=1
+        for i in range(len(bottoms)):
+            if tops[i]!=bottoms[0] and bottoms[i]!=bottoms[0]:
+                flipB[0]=flipB[1]=-1
+                break
+            elif bottoms[i]!=bottoms[0]:
+                    flipB[0]+=1
+            elif tops[i]!=bottoms[0]:
+                    flipB[1]+=1
+        if max(flipA[0],flipA[1])==-1:
+            return min(flipB[0],flipB[1])
+        else:
+            return min(flipA[0],flipA[1])
