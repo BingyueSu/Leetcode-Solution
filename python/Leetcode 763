@@ -1,0 +1,18 @@
+class Solution(object):
+    def partitionLabels(self, s):
+        """
+        :type s: str
+        :rtype: List[int]
+        """
+        last={c:i for i,c in enumerate(s)}
+        i=0
+        final_sign=0
+        result=[]
+        length=0
+        for i in range(len(s)):
+            final_sign=max(final_sign,last[s[i]])
+            length+=1
+            if i==final_sign:
+                result.append(length)
+                length=0
+        return result
