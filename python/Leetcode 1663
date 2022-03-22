@@ -1,0 +1,20 @@
+class Solution(object):
+    def getSmallestString(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        string=[]
+        while n>0:
+            if k-1<=(n-1)*26:
+                string.append('a')
+                n-=1
+                k-=1
+            else:
+                string.append(chr(ord('a')+k-(n-1)*26-1))
+                n-=1
+                while n>0:
+                    string.append('z')
+                    n-=1
+        return ''.join(string)
