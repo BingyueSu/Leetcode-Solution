@@ -1,0 +1,17 @@
+class Solution(object):
+    def brokenCalc(self, startValue, target):
+        """
+        :type startValue: int
+        :type target: int
+        :rtype: int
+        """
+        count=0
+        while target>startValue:
+            if target%2==1:
+                target+=1
+                target=target/2
+                count+=2
+            else:
+                target=target/2
+                count+=1
+        return count+startValue-target
