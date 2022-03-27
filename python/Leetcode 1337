@@ -1,0 +1,13 @@
+class Solution(object):
+    def kWeakestRows(self, mat, k):
+        """
+        :type mat: List[List[int]]
+        :type k: int
+        :rtype: List[int]
+        """
+        strength=[(sum(mat[i]),i) for i in range(len(mat))]
+        strength.sort()
+        result=[0]*k
+        for i in range(k):
+            result[i]=strength[i][1]
+        return result
