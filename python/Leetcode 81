@@ -1,0 +1,37 @@
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        start=0
+        end=len(nums)-1
+        while start<=end:
+            rotate=nums[start]
+            mid=(start+end)/2
+            if nums[mid]==target:
+                return True
+            if nums[mid]>rotate:
+                if target<rotate:
+                    start=mid+1
+                elif target==rotate:
+                    return True
+                else:
+                    if target>nums[mid]:
+                        start=mid+1
+                    else:
+                        end=mid-1
+            elif nums[mid]<rotate:
+                if target>rotate:
+                    end=mid-1
+                elif target==rotate:
+                    return True
+                else:
+                    if target>nums[mid]:
+                        start=mid+1
+                    else:
+                        end=mid-1
+            else:
+                start+=1
+        return False
