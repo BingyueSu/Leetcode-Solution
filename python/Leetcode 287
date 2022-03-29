@@ -1,0 +1,19 @@
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        low=1
+        high=len(nums)-1
+        candidate=0
+        while low<=high:
+            mid=(low+high)/2
+            count=0
+            count=sum(i<=mid for i in nums)
+            if count>mid:
+                candidate=mid
+                high=mid-1
+            else:
+                low=mid+1
+        return candidate
