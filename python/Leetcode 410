@@ -1,0 +1,28 @@
+class Solution(object):
+    def splitArray(self, nums, m):
+        """
+        :type nums: List[int]
+        :type m: int
+        :rtype: int
+        """
+        def minsplit(nums, target):
+            total=0
+            num_group=1
+            for num in nums:
+                if total+num>target:
+                    total=num
+                    num_group+=1
+                else:
+                    total+=num
+            return num_group          
+        low=max(nums)
+        high=sum(nums)
+        while low<=high:
+            mid=int((low+high)/2)
+            if minsplit(nums,mid)<=m:
+                high=mid-1
+                min_max_split=mid
+            else:
+                low=mid+1
+        return min_max_split
+        
