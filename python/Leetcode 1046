@@ -1,0 +1,35 @@
+class Solution(object):
+    def lastStoneWeight(self, stones):
+        """
+        :type stones: List[int]
+        :rtype: int
+        """
+        stones.sort()
+        while len(stones)>1:
+            large1=stones.pop()
+            large2=stones.pop()
+            if large1!=large2:
+                bisect.insort(stones,large1-large2)
+        if stones:
+            return stones[0]
+        else:
+            return 0
+            
+class Solution(object):
+    def lastStoneWeight(self, stones):
+        """
+        :type stones: List[int]
+        :rtype: int
+        """
+        for i in range(len(stones)):
+            stones[i]*=-1
+        heapq.heapify(stones)
+        while len(stones)>1:
+            large1=heapq.heappop(stones)
+            large2=heapq.heappop(stones)
+            if large1<large2:
+                heapq.heappush(stones,large1-large2)
+        if stones:
+            return -stones[0]
+        else:
+            return 0
