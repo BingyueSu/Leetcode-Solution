@@ -1,0 +1,23 @@
+class Solution(object):
+    def shiftGrid(self, grid, k):
+        """
+        :type grid: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        def OneShift(grid):
+            m=len(grid)
+            n=len(grid[0])
+            store=grid[m-1][n-1]
+            for i in reversed(range(m)):
+                for j in reversed(range(n)):
+                    if j>=1:
+                        grid[i][j]=grid[i][j-1]
+                    elif i>=1:
+                        grid[i][j]=grid[i-1][n-1]
+                    else:
+                        grid[i][j]=store
+            return grid
+        for i in range(k):
+            grid=OneShift(grid)
+        return grid
