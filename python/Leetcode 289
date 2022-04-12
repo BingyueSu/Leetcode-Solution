@@ -1,0 +1,28 @@
+class Solution(object):
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        m=len(board)
+        n=len(board[0])
+        neighbors = [(1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1), (0,1), (1,1)]
+        for i in range(m):
+            for j in range(n):
+                count=0
+                for nei in neighbors:
+                    row=i+nei[0]
+                    col=j+nei[1]
+                    if row<m and row>=0 and col<n and col>=0 and abs(board[row][col])==1:
+                        count+=1
+                if board[i][j]==1 and (count>3 or count<2):
+                    board[i][j]=-1
+                if board[i][j]==0 and count==3:
+                    board[i][j]=2
+        for i in range(m):
+            for j in range(n):
+                if board[i][j]==-1:
+                    board[i][j]=0
+                if board[i][j]==2:
+                    board[i][j]=1
+        return board
