@@ -1,0 +1,22 @@
+class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        res=[[0]*n for _ in range(n)]
+        k=1
+        for i in range((n+1)//2):
+            for j in range(i,n-i):
+                res[i][j]=k
+                k+=1
+            for j in range(i+1,n-i):
+                res[j][n-i-1]=k
+                k+=1
+            for j in reversed(range(i,n-i-1)):
+                res[n-i-1][j]=k
+                k+=1
+            for j in reversed(range(i+1,n-i-1)):
+                res[j][i]=k
+                k+=1
+        return res
