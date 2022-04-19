@@ -24,3 +24,30 @@ class Solution(object):
             cur.right=TreeNode(root.val)
         self.increasingBST(root.right)
         return self.tree
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def __init__(self):
+        self.tree=None
+        self.cur=None
+    def increasingBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root is None:
+            return None
+        self.increasingBST(root.left)
+        if self.tree is None:
+            self.tree=TreeNode(root.val)
+            self.cur=self.tree
+        else:
+            self.cur.right=TreeNode(root.val)
+            self.cur=self.cur.right
+        self.increasingBST(root.right)
+        return self.tree
