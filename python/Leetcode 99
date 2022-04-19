@@ -26,4 +26,4 @@ class Solution(object):
                     break
             pred=node
             node=node.right
-        x.val,y.val=y.val,x.val
+        x.val,y.val=y.val,x.val 
