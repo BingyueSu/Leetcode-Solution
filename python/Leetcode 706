@@ -1,0 +1,52 @@
+class MyHashMap(object):
+
+    def __init__(self):
+        self.keyRange = 769
+        self.hash_table = [Bucket() for i in range(self.keyRange)]
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        hash_key=key%self.keyRange
+        self.hash_table[hash_key].update(key,value)
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        hash_key=key%self.keyRange
+        return(self.hash_table[hash_key].get(key))
+
+    def remove(self, key):
+        """
+        :type key: int
+        :rtype: None
+        
+        """
+        hash_key=key%self.keyRange
+        self.hash_table[hash_key].remove(key)
+class Bucket:
+    def __init__(self):
+        self.bucket=[]
+    def update(self,key,value):
+        flag=0
+        for (i,v) in enumerate(self.bucket):
+            if v[0]==key:
+                self.bucket[i]=(key,value)
+                flag=1
+                break
+        if flag==0:
+            self.bucket.append((key,value))
+    def get(self,key):
+        for x in self.bucket:
+            if x[0]==key:
+                return x[1]
+        return -1
+    def remove(self,key):
+        for i,x in enumerate(self.bucket):
+            if x[0]==key:
+                del self.bucket[i]
