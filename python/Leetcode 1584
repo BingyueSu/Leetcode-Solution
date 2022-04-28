@@ -1,0 +1,40 @@
+class UnionFind:
+    def __init__(self,size):
+        self.group=[0]*size
+        for i in range(size):
+            self.group[i]=i
+    def find(self,node):
+        if self.group[node]!=node:
+            self.group[node]=self.find(self.group[node])
+        return self.group[node]
+    def join(self,n1,n2):
+        group1 = self.find(n1)
+        group2 = self.find(n2)
+        if group1 == group2:
+            return False
+        self.group[group1]=group2
+        return True
+    
+class Solution(object):
+    def minCostConnectPoints(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        n=len(points)
+        all_edges=[]
+        for i in range(n):
+            for j in range(i+1,n):
+                weight=abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1])
+                all_edges.append((weight,i,j))
+        all_edges.sort()
+        uf=UnionFind(n)
+        total_cost=0
+        num_edge=0
+        for weight,n1,n2 in all_edges:
+            if uf.join(n1,n2):
+                total_cost+=weight
+                num_edge+=1
+                if num_edge==n-1:
+                    break
+        return total_cost
