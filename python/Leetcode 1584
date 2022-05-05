@@ -1,3 +1,6 @@
+################
+#Kruskal
+################
 class UnionFind:
     def __init__(self,size):
         self.group=[0]*size
@@ -37,4 +40,34 @@ class Solution(object):
                 num_edge+=1
                 if num_edge==n-1:
                     break
+        return total_cost
+
+
+################
+#Prim
+################
+class Solution(object):
+    def minCostConnectPoints(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        num_edge=0
+        total_cost=0
+        n=len(points)
+        is_connected=[False]*n
+        heap=[(0,0)]
+        while num_edge<n:
+            curr_node=heapq.heappop(heap)
+            curr_index=curr_node[1]
+            if is_connected[curr_index]:
+                continue
+            is_connected[curr_index]=True
+            num_edge+=1
+            total_cost+=curr_node[0]
+            for i in range(n):
+                if not is_connected[i]:
+                    weight=abs(points[curr_index][0]-points[i][0])+\
+                            abs(points[curr_index][1]-points[i][1])
+                    heapq.heappush(heap,(weight,i))
         return total_cost
