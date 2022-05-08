@@ -4,21 +4,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        def find(nums): 
-            if(len(nums)<3):
-                return(False)
-            if(len(nums)==3):
-                if(nums[0]<nums[2] and nums[2]<nums[1]):
-                    return True
-                else:
-                    return False
-            if(len(nums)>3):
-                i=nums.index(max(nums))
-                if(i==0 or i==len(nums)):
-                    return(find(nums[0:i]) or find(nums[i+1:len(nums)]))
-                min_left=min(nums[0:i])
-                for val in nums[i+1:len(nums)]:
-                    if(min_left<val and val<nums[i]):
-                        return True
-                return(find(nums[0:i]) or find(nums[i+1:len(nums)]))
-        return(find(nums))
+        if len(nums)<3:
+            return False
+        min_array=[0]*len(nums)
+        min_array[0]=nums[0]
+        for i in range(1,len(nums)):
+            min_array[i]=min(min_array[i-1],nums[i])
+        stack=[]
+        for i in range(len(nums)-1,-1,-1):
+            if nums[i]<=min_array[i]:
+                continue
+            while stack and stack[-1]<=min_array[i]:
+                stack.pop()
+            if stack and stack[-1]<nums[i]:
+                return True
+            stack.append(nums[i])
+        return False
