@@ -1,3 +1,23 @@
+###
+class Solution(object):
+    def find132pattern(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        intervals=[]
+        low_intervals=0
+        for i in range(1,len(nums)):
+            if nums[i]<nums[i-1]:
+                if low_intervals<i-1:
+                    intervals.append([low_intervals,i-1])
+                low_intervals=i
+            for interval in intervals:
+                if nums[interval[0]]<nums[i]<nums[interval[1]]:
+                    return True
+        return False
+        
+###stack
 class Solution(object):
     def find132pattern(self, nums):
         """
