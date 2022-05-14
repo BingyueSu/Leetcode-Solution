@@ -1,0 +1,25 @@
+class Solution(object):
+    def networkDelayTime(self, times, n, k):
+        """
+        :type times: List[List[int]]
+        :type n: int
+        :type k: int
+        :rtype: int
+        """
+        graph = collections.defaultdict(list)
+        for u, v, w in times:
+            graph[u].append((v, w))
+        distance=[float('inf')]*n
+        distance[k-1]=0
+        next_visit=[[0,k]]
+        while next_visit:
+            curr_node=heapq.heappop(next_visit)
+            for node,weight in graph[curr_node[1]]:
+                new_dis=weight+distance[curr_node[1]-1]
+                if new_dis<distance[node-1]:
+                    distance[node-1]=new_dis
+                    heapq.heappush(next_visit,[distance[node-1],node])
+        if max(distance)==float('inf'):
+            return -1
+        else:
+            return max(distance)
