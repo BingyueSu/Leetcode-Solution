@@ -1,0 +1,28 @@
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        word_map=defaultdict(list)
+        word_len=len(beginWord)
+        for word in wordList:
+            for i in range(word_len):
+                word_map[word[:i]+'*'+word[i+1:]].append(word)
+        queue=[beginWord]
+        num_step=defaultdict(int)
+        num_step[beginWord]+=1
+        while len(queue)>0:
+            curr=queue.pop(0)
+            if curr==endWord:
+                return num_step[curr]
+            for i in range(word_len):
+                candidate=word_map[curr[:i]+'*'+curr[i+1:]]
+                for word in candidate:
+                    if num_step[word]>0:
+                        continue
+                    num_step[word]=num_step[curr]+1
+                    queue.append(word)
+        return 0
