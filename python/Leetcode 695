@@ -27,3 +27,23 @@ class Solution(object):
                         count+=1
                 max_area=max(max_area,count)
         return max_area
+
+class Solution(object):
+    def maxAreaOfIsland(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        seen=set()
+        nrow=len(grid)
+        ncol=len(grid[0])
+        def find_neighbor(r,c):
+            if r<0 or r>=nrow or c<0 or c>=ncol:
+                return 0
+            if grid[r][c]==0 or (r,c) in seen:
+                return 0
+            seen.add((r,c))
+            return (1+find_neighbor(r+1,c)+find_neighbor(r-1,c)+
+                     find_neighbor(r,c+1)+find_neighbor(r,c-1))
+        return max(find_neighbor(r,c) for r in range(nrow) 
+                   for c in range(ncol))
