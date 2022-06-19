@@ -1,0 +1,49 @@
+#DFS
+class Solution(object):
+    def findCircleNum(self, isConnected):
+        """
+        :type isConnected: List[List[int]]
+        :rtype: int
+        """
+        n=len(isConnected)
+        num_province=0
+        visited=[False]*n
+        for i in range(n):
+            if visited[i]:
+                continue
+            stack=[i]
+            visited[i]=True
+            while len(stack)>0:
+                curr=stack.pop()
+                for j in range(n):
+                    if visited[j]==True or isConnected[curr][j]==0:
+                        continue
+                    stack.append(j)
+                    visited[j]=True
+            num_province+=1
+        return num_province
+        
+#BFS
+class Solution(object):
+    def findCircleNum(self, isConnected):
+        """
+        :type isConnected: List[List[int]]
+        :rtype: int
+        """
+        n=len(isConnected)
+        num_province=0
+        visited=[False]*n
+        for i in range(n):
+            if visited[i]:
+                continue
+            queue=[i]
+            visited[i]=True
+            while len(queue)>0:
+                curr=queue.pop(0)
+                for j in range(n):
+                    if visited[j]==True or isConnected[curr][j]==0:
+                        continue
+                    queue.append(j)
+                    visited[j]=True
+            num_province+=1
+        return num_province
