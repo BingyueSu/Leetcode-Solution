@@ -26,3 +26,32 @@ class Solution(object):
                         visited[r+dr][c+dc]=True
                         stack.append([r+dr,c+dc])
         return num_island
+
+#BFS
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        nrow=len(grid)
+        ncol=len(grid[0])
+        visited=[[False]*ncol for _ in range(nrow)]
+        num_island=0
+        for i in range(nrow):
+            for j in range(ncol):
+                if grid[i][j]=='0' or visited[i][j]:
+                    continue
+                num_island+=1
+                queue=[[i,j]]
+                while len(queue)>0:
+                    r,c=queue.pop(0)
+                    visited[r][c]=True
+                    for dr,dc in [[-1,0],[1,0],[0,-1],[0,1]]:
+                        if r+dr<0 or r+dr>=nrow or c+dc<0 or c+dc>=ncol:
+                            continue
+                        if grid[r+dr][c+dc]=='0' or visited[r+dr][c+dc]:
+                            continue
+                        visited[r+dr][c+dc]=True
+                        queue.append([r+dr,c+dc])
+        return num_island
