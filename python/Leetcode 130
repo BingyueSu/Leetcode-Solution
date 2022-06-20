@@ -1,0 +1,32 @@
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        nrow=len(board)
+        ncol=len(board[0])
+        visited=[[False]*ncol for _ in range(nrow)]
+        for i in range(nrow):
+            for j in range(ncol):
+                if board[i][j]=='X' or visited[i][j]:
+                    continue
+                stack=[[i,j]]
+                store=[[i,j]]
+                flag=0
+                while len(stack)>0:
+                    r,c=stack.pop()
+                    visited[r][c]=True
+                    for dr,dc in [[-1,0],[1,0],[0,-1],[0,1]]:
+                        if r+dr>=nrow or r+dr<0 or c+dc>=ncol or c+dc<0:
+                            flag=1
+                            continue
+                        if board[r+dr][c+dc]=='X' or visited[r+dr][c+dc]:
+                            continue
+                        stack.append([r+dr,c+dc])
+                        store.append([r+dr,c+dc])
+                        visited[r+dr][c+dc]=True
+                if flag==0:
+                    for pos in store:
+                        board[pos[0]][pos[1]]='X'
+        return board
