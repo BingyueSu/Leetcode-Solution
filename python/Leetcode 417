@@ -1,0 +1,55 @@
+class Solution(object):
+    def pacificAtlantic(self, heights):
+        """
+        :type heights: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        nrow=len(heights)
+        ncol=len(heights[0])
+        from itertools import product
+        Pacific=list(product(range(nrow),[0]
+                            ))+list(product([0],range(ncol)))
+        Atlantic=list(product(range(nrow),[ncol-1]
+                            ))+list(product([nrow-1],range(ncol)))
+        Pac_cover=[[False]*ncol for _ in range(nrow)]
+        Atl_cover=[[False]*ncol for _ in range(nrow)]
+        seen=set()
+        for i,j in Pacific:
+            if (i,j) in seen:
+                continue
+            stack=[(i,j)]
+            seen.add((i,j))
+            while len(stack)>0:
+                r,c=stack.pop()
+                Pac_cover[r][c]=True
+                for dr,dc in [(-1,0),(1,0),(0,-1),(0,1)]:
+                    if r+dr<0 or r+dr>=nrow or c+dc<0 or c+dc>=ncol:
+                        continue
+                    if (r+dr,c+dc) in seen:
+                        continue
+                    if heights[r+dr][c+dc]>=heights[r][c]:
+                        seen.add((r+dr,c+dc))
+                        stack.append((r+dr,c+dc))
+        seen=set()
+        for i,j in Atlantic:
+            if (i,j) in seen:
+                continue
+            stack=[(i,j)]
+            seen.add((i,j))
+            while len(stack)>0:
+                r,c=stack.pop()
+                Atl_cover[r][c]=True
+                for dr,dc in [(-1,0),(1,0),(0,-1),(0,1)]:
+                    if r+dr<0 or r+dr>=nrow or c+dc<0 or c+dc>=ncol:
+                        continue
+                    if (r+dr,c+dc) in seen:
+                        continue
+                    if heights[r+dr][c+dc]>=heights[r][c]:
+                        seen.add((r+dr,c+dc))
+                        stack.append((r+dr,c+dc))
+        ans=[]
+        for i in range(nrow):
+            for j in range(ncol):
+                if Pac_cover[i][j] and Atl_cover[i][j]:
+                    ans.append([i,j])
+        return ans
