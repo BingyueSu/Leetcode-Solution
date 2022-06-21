@@ -16,3 +16,26 @@ class Solution:
             return  
         recur(0,[])
         return(result)
+
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        letters = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", 
+                   "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        if not digits:
+            return []
+        ans=[]
+        def backtrack(digits,word,loc):
+            string=letters[digits[loc]]
+            for i in range(len(string)):
+                word.append(string[i])
+                if loc==len(digits)-1:
+                    ans.append("".join(word))
+                else:
+                    backtrack(digits,word,loc+1)
+                word.pop()
+        backtrack(digits,[],0)
+        return ans
