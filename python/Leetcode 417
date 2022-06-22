@@ -53,3 +53,33 @@ class Solution(object):
                 if Pac_cover[i][j] and Atl_cover[i][j]:
                     ans.append([i,j])
         return ans
+
+#Recursive
+class Solution(object):
+    def pacificAtlantic(self, heights):
+        """
+        :type heights: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        nrow=len(heights)
+        ncol=len(heights[0])
+        pac_seen=set()
+        atl_seen=set()
+        def dfs(r,c,seen):
+            if (r,c) in seen:
+                return
+            seen.add((r,c))
+            for dr,dc in [[-1,0],[1,0],[0,-1],[0,1]]:
+                if r+dr<0 or r+dr>=nrow or c+dc<0 or c+dc>=ncol:
+                    continue
+                if (r+dr,c+dc) in seen:
+                    continue
+                if heights[r+dr][c+dc]>=heights[r][c]:
+                    dfs(r+dr,c+dc,seen)
+        for i in range(nrow):
+            dfs(i,0,pac_seen)
+            dfs(i,ncol-1,atl_seen)
+        for j in range(ncol):
+            dfs(0,j,pac_seen)
+            dfs(nrow-1,j,atl_seen)
+        return list(pac_seen.intersection(atl_seen))
