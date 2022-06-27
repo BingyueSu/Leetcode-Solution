@@ -1,0 +1,28 @@
+class Solution(object):
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        num_dot=3
+        ans=[]
+        def isValid(s):
+            if len(s)>1 and s[0]=='0':
+                return False
+            if int(s)>=0 and int(s)<=255:
+                return True
+            return False
+        def backtrack(s,num_dot,segment):
+            if num_dot==0:
+                if isValid(s):
+                    segment.append(s)
+                    ans.append('.'.join(segment))
+                    segment.pop()
+            else:
+                for i in range(1,4):
+                    if isValid(s[:i]) and len(s)-i>num_dot-1:
+                        segment.append(s[:i])
+                        backtrack(s[i:],num_dot-1,segment)
+                        segment.pop()
+        backtrack(s,3,[])
+        return ans
