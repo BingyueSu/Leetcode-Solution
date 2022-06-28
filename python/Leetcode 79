@@ -1,0 +1,35 @@
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        nrow=len(board)
+        ncol=len(board[0])
+        def backtrack(seen,loc,r,c):
+            seen.add((r,c))
+            flag=False
+            if loc==len(word):
+                return True
+            else:
+                for dr,dc in [[-1,0],[1,0],[0,-1],[0,1]]:
+                    if r+dr<0 or r+dr>=nrow or c+dc<0 or c+dc>=ncol:
+                        continue
+                    if (r+dr,c+dc) in seen:
+                        continue
+                    if board[r+dr][c+dc]!=word[loc]:
+                        continue
+                    #curr_word.append(board[r+dr][c+dc])
+                    seen.add((r+dr,c+dc))
+                    flag=backtrack(seen,loc+1,r+dr,c+dc)
+                    if flag:
+                        break
+                    seen.remove((r+dr,c+dc))
+            return flag
+        for i in range(nrow):
+            for j in range(ncol):
+                if board[i][j]==word[0]:
+                    if backtrack(set(),1,i,j):
+                        return True
+        return False
