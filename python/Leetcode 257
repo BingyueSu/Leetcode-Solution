@@ -22,3 +22,25 @@ class Solution(object):
                     res.append(path)
         backtrack(root,'')
         return res
+        
+        
+        
+#with pop()
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        res=[]
+        def backtrack(node,path):
+            if node is not None:
+                path.append(str(node.val))
+                if node.left or node.right:
+                    backtrack(node.left,path)
+                    backtrack(node.right,path)
+                else:
+                    res.append('->'.join(path))
+                path.pop()
+        backtrack(root,[])
+        return res
