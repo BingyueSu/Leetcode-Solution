@@ -1,0 +1,15 @@
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        res=[]
+        def backtrack(perm,count):
+            for x in count:
+                if count[x]>0:
+                    count[x]-=1
+                    perm.append(x)
+                    if len(perm)==len(nums):
+                        res.append(perm.copy())
+                    backtrack(perm,count)
+                    perm.pop()
+                    count[x]+=1
+        backtrack([],Counter(nums))
+        return res
