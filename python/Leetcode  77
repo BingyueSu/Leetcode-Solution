@@ -1,0 +1,15 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res=[]
+        def backtrack(k_temp,start,temp):
+            for i in range(start,n+1):
+                if k_temp>0:
+                    k_temp-=1
+                    temp.append(i)
+                    if len(temp)==k:
+                        res.append(temp.copy())
+                    backtrack(k_temp,i+1,temp)
+                    k_temp+=1
+                    temp.pop()
+        backtrack(k,1,[])
+        return res
