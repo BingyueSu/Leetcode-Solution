@@ -1,0 +1,19 @@
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res=[[]]
+        count=Counter(nums)
+        count=[[c,count[c]] for c in count]
+        def backtrack(sublen,loc,temp):
+            for i in range(loc,len(count)):
+                num,freq=count[i]
+                if len(temp)<sublen and freq>0:
+                    temp.append(num)
+                    count[i][1]-=1
+                    if len(temp)==sublen:
+                        res.append(list(temp))
+                    backtrack(sublen,i,temp)
+                    temp.pop()
+                    count[i][1]+=1
+        for j in range(1,len(nums)+1):
+            backtrack(j,0,[])
+        return res
